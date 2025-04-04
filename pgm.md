@@ -1,3 +1,7 @@
+https://www.udemy.com/course/devops-with-docker-kubernetes-and-azure-devops/learn/lecture/18050129#overview
+
+https://www.udemy.com/course/testing-spring-boot-application-with-junit-and-mockito/learn/lecture/47006601#overview
+
 # 9. Setup
 ### pom.xml
 ```xml
@@ -862,3 +866,346 @@ public class AfterAllDemoTest {
     }
 }
 ```
+# 29.
+### Calculator same code
+### RepeatedTestDemoTesgt
+```java
+package net.javaguides.annotations;
+
+import net.javaguides.Calculator;
+import org.junit.jupiter.api.*;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+public class RepeatedTestDemoTesgt {
+    @BeforeEach
+    void setup(){
+        System.out.println("Setup method is calling..");
+    }
+    @AfterEach
+    void tearDown(){
+        System.out.println("tearDown method is calling..");
+    }
+
+    @BeforeAll
+    static void setupBeforeClass(){
+        System.out.println("setupBeforeClass method is calling..");
+    }
+
+    @AfterAll
+    static void tearDownAfterClass(){
+        System.out.println("tearDownAfterClass method is calling..");
+    }
+
+    @RepeatedTest(value = 5, name = RepeatedTest.LONG_DISPLAY_NAME)
+    @DisplayName("Test Addition Repeatedly")
+    public void addTest(){
+        Calculator calculator = new Calculator();
+        assertEquals(5,calculator.add(2,3));
+        System.out.println("addTest() method is calling");
+    }
+}
+```
+# 30.
+### Calculator same
+### NestedCalculatorTest
+```java
+package net.javaguides.annotations;
+
+import net.javaguides.Calculator;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Nested;
+import org.junit.jupiter.api.Test;
+
+import static  org.junit.jupiter.api.Assertions.*;
+
+public class NestedCalculatorTest {
+    private Calculator calculator;
+    @BeforeEach
+    void setup(){
+        calculator = new Calculator();
+    }
+    @Nested
+    class AdditionTests{
+        @Test
+         public void testAddPositiveNumber(){ //create test method which are related to this Nested class
+            assertEquals(7,calculator.add(3,4));
+        }
+        @Test
+        public void testAddPositiveAndNegativeNumber(){
+            assertEquals(1,calculator.add(4,-3));
+        }
+        @Test
+        public void testNegativeNumber(){
+            assertEquals(-7,calculator.add(-4,-3));
+        }
+    }
+    @Nested
+    class SubtractionTEsts{
+        @Test
+        public void testSubtractPositiveNumber(){
+            assertEquals(1,calculator.subtract(4,3));
+        }
+        @Test
+        public void testSubtractLargerFromSmaller(){
+            assertEquals(-4,calculator.subtract(3,7));
+        }
+
+        @Nested
+        class EdgeCases{
+            @Test
+            public void testSubtractZero(){
+                assertEquals(2,calculator.subtract(2,0));
+            }
+            @Test
+            public void testSubtractSelf(){
+                assertEquals(0,calculator.subtract(2,2));
+            }
+        }
+    }
+}
+```
+# 31
+### Calculator same story
+### OrderCalculatorTest
+```java
+package net.javaguides.annotations;
+
+import net.javaguides.Calculator;
+import org.junit.jupiter.api.MethodOrderer;
+import org.junit.jupiter.api.Order;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class) //passing Ordering Strategy
+public class OrderCalculatorTest {
+
+    @Order(1) //1st this will execute
+    @Test
+    void testAdd(){
+        Calculator calculator = new Calculator();
+        assertEquals(5,calculator.add(2,3));
+    }
+
+    @Order(3)
+    @Test
+    void testSubtract(){
+        Calculator calculator = new Calculator();
+        assertEquals(1,calculator.subtract(3,2));
+    }
+
+    @Order(2)
+    @Test
+    void testMultiply(){
+        Calculator calculator = new Calculator();
+        assertEquals(6,calculator.multiply(2,3));
+    }
+
+    @Order(4)
+    @Test
+    void testDivide(){
+        Calculator calculator = new Calculator();
+        assertEquals(2,calculator.divide(4,2));
+    }
+}
+```
+# 32.
+### pom.xml
+```java
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>net.javaguides</groupId>
+    <artifactId>junit-tutorial</artifactId>
+    <version>1.0-SNAPSHOT</version>
+
+    <properties>
+        <maven.compiler.source>21</maven.compiler.source>
+        <maven.compiler.target>21</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
+    <dependencies>
+        <!-- https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api -->
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-api</artifactId>
+            <version>5.11.0</version>
+            <scope>test</scope>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.junit.platform/junit-platform-suite-engine -->
+        <dependency>
+            <groupId>org.junit.platform</groupId>
+            <artifactId>junit-platform-suite-engine</artifactId>
+            <version>1.11.0</version>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-engine -->
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-engine</artifactId>
+            <version>5.11.0</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+</project>
+```
+### ClassATest
+```java
+package net.javaguides.suite;
+
+import org.junit.jupiter.api.Test;
+
+public class ClassATest {
+
+    @Test
+    void testClassA(){
+        System.out.println("Within ClassATest.testClassA method");
+    }
+}
+```
+### ClassBTest
+```java
+package net.javaguides.suite;
+
+import org.junit.jupiter.api.Test;
+
+public class ClassBTest {
+
+    @Test
+    void testClassB(){
+
+        System.out.println("Within ClassBTest.testClassB method");
+    }
+}
+```
+### ClassCTest
+```java
+package net.javaguides.suite;
+
+import org.junit.jupiter.api.Test;
+
+public class ClassCTest {
+
+    @Test
+    void testClassC(){
+
+        System.out.println("Within ClassCTest.testClassC method");
+    }
+}
+```
+### TestSuite
+```java
+package net.javaguides.suite;
+
+import org.junit.platform.suite.api.SelectClasses;
+import org.junit.platform.suite.api.SelectPackages;
+import org.junit.platform.suite.api.Suite;
+
+@Suite
+@SelectPackages({"net.javaguides.annotations","net.javaguides.suite"})
+public class TestSuite {
+
+}
+```
+# 33. Theory
+# 34.
+### pom.xml
+```java
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>net.javaguides</groupId>
+    <artifactId>junit-tutorial</artifactId>
+    <version>1.0-SNAPSHOT</version>
+
+    <properties>
+        <maven.compiler.source>21</maven.compiler.source>
+        <maven.compiler.target>21</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
+    <dependencies>
+        <!-- https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api -->
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-api</artifactId>
+            <version>5.11.0</version>
+            <scope>test</scope>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.junit.platform/junit-platform-suite-engine -->
+        <dependency>
+            <groupId>org.junit.platform</groupId>
+            <artifactId>junit-platform-suite-engine</artifactId>
+            <version>1.11.0</version>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-engine -->
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-engine</artifactId>
+            <version>5.11.0</version>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-params -->
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-params</artifactId>
+            <version>5.11.0</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+</project>
+```
+### MathUtils
+```java
+package net.javaguides;
+
+public class MathUtils {
+
+    //Create a method will check number is even or not
+    public boolean isEven(int number){
+        return number%2 == 0;
+    }
+}
+```
+### ValueSourceDemoTest
+```java
+package net.javaguides.parameterized;
+
+import net.javaguides.MathUtils;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+public class ValueSourceDemoTest {
+
+    @ParameterizedTest
+    @ValueSource(ints = {2,3,6,8,10})
+    void testIsEven(int number){
+        MathUtils mathUtils = new MathUtils();
+        assertTrue(mathUtils.isEven(number));
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = {"Hello","Junit","Parameterized","Test"})
+    void valueSouceTest(String parameter){
+        //Check this parameter is not null
+        assertNotNull(parameter);
+    }
+}
+```
+

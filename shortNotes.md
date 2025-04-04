@@ -264,6 +264,89 @@ Method
     -	So, make sure that you make you know method as a static.
 
 ![alt text](image-280.png)
+## 29. About RepeatedTest annotation
+- If u want to execute a test multiple times, then go for @RepeatedTest annotation
+### U can specify the number directly in @RepeatedTest annotation
+![alt text](image-299.png)
+### U can use name attribute to make your test case more readable
+![alt text](image-300.png)
+### U can customize test case name (@Display + @RepeatedTest)
+![alt text](image-301.png)
+### U can use life cycle methods with @RepeatedTest annotation
+-	See screenshots.
+-	Remember- don’t bother about order of execution of test case
+-	Just check the method which is annotated with @BeforeAll and @AfterAll annotation is executed at least once.
+## 30. About NestedClass
+- If you want to logically organize related tests into one group then u go for @Nested annotation.
+### Rules:
+-  An outermost class cannot be nested.
+- An inner class will be non-static class.
+- Use @Nested annotation on inner/nested class and not on test methods.
+### Remember:
+- If we execute Parent class then all test cases which are present in nested class will automatically be executed.
+### Pgm:
+- We group  testAddPositiveNumber(), testAddPositiveAndNegativeNumber() and testNegativeNumber() method in AdditionTests Nested class
+- Similarly, We group testSubtractionPositiveNumber() and testSubtractLargerFromSmaller() into SubtractionTests Nested class.
+### We can also write Nested class within another Nested class
+-  So Inside Subtraction Nested class we write Another Nested class ie. EdgeCases.
+
+![alt text](image-312.png)![alt text](image-313.png)
+## 31. About Test Execution Order
+- Junit executes test randomly in any order.
+- So, if you want to executes the test method in any particular sequence then go with this concept.
+### Rules:
+- Annotated particular test class which test method you want to execute with particular order with @TestMethodOrder 
+- Inside this Annotation @TestMethodOrder you have to provide ordering strategy.
+    - Ordering Strategy is Alphanumeric, Order annotation etc.
+
+![alt text](image-324.png)![alt text](image-325.png)
+- check screenshots.
+## 32. About Test Suite
+- If u want to execute collection of test cases together and simultaneously then go for test suites.
+- For this add dependency
+    -	Junit-platform-suite-engine
+    -	Also add dependency Junit-Jupiter-engine. 
+        - If you failed to add this dependency landing an error like fail to discover test. (Check ScreenShots)
+- If u want to test single class
+    - @SelectClasses
+         - pass single class
+    - For multiple
+	    - Pass multiples classes in { } curly braces
+- Similarly for package.
+- See screenshots.
+## 33. About Parameterized Test
+- Parameterized test allow developer to run same test case with different inputs/arguments/parameter.
+- Added Junit-Jupiter-params dependency.
+- Indicating the below test method is Parameterized test method via @ParameterizedTest annotation.
+- Various Source types like value Source, Enum source etc..
+## 34. About Parameterized Test
+- @ValueSource annotation takes arrays of literal/primitive values.
+- Primitive values like int, short, String etc. 
+- So, if you provide multiple integer number you can provide via ints
+
+![alt text](image-358.png)
+- Add dependency for JUnit-Jupiter-params
+### At class under test create isEven() method
+![alt text](image-359.png)
+- If you write multiple test case just to provide different input. 
+    - Drawbacks explain see screenshots.
+### How to write Parameterized Test
+-	Annotate test method with @ParameterizeTest annotation
+-	Provide @ValueSource and values in it
+-	Define parameter in method
+-	Write test case
+
+![alt text](image-360.png)
+
+
+
+
+
+
+
+
+
+
 
 
 

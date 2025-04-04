@@ -436,6 +436,131 @@ annotation.
 ![alt text](image-279.png)
 # *** ***Section-7*** Nested Test and Repeated Test
 # 29. RepeatedTest
+![alt text](image-281.png)![alt text](image-282.png)![alt text](image-283.png)
+### Coding
+![alt text](image-284.png)![alt text](image-285.png)![alt text](image-286.png)
+### We want to execute this test method multiple times.
+![alt text](image-287.png)![alt text](image-288.png)
+- Notice here the default display naming convention over here.
+### We can customize name
+![alt text](image-289.png)![alt text](image-290.png)
+### Customization progressing
+![alt text](image-291.png)![alt text](image-292.png)
+### Use lifcycle annotation with RepeatedTest
+![alt text](image-293.png)![alt text](image-294.png)![alt text](image-295.png)![alt text](image-296.png)
+### More lifecycle methods
+![alt text](image-297.png)![alt text](image-298.png)
+- Well don't bother about the order of statements over here.
+- JUnit will execute the test cases randomly.
+- Make sure this setupBeforeClass and tearDownAfterClass method executed 1 time.
+# 30. Nested Annotation
+![alt text](image-302.png)
+- Well, JUnit provides a nested test feature that allows you to, you know, group nested test classes within a single test class.
+### More info about Rules
+![alt text](image-303.png)
+- If we execute parent test class it will also execute the method in it’s nested test class.
+### Coding
+![alt text](image-305.png)
+### Group all related method within nested class
+![alt text](image-304.png)
+### If u run main class it's nested class test method also get executed
+![alt text](image-306.png)
+### U can also run the nested class
+![alt text](image-307.png)
+### Adding more nested class
+![alt text](image-308.png)
+### Run parent class and see hierarchy
+![alt text](image-309.png)
+- So these are the nested classes.
+- And here are their respective test methods.
+- So this is the nice hierarchy.
+- So basically here we have grouped all the addition related test methods within a AdditionTests nested class.
+- And here we have grouped all the subsection related test methods within a SubtractionTests nested class.
+- And these two nested class belongs to this  NestedCalculatorTests parent class.
+### U can also create a Nested class within a Nested class
+![alt text](image-310.png)![alt text](image-311.png)
+# *** ***Section-8: Test Execution Order***
+# 31. Test Execution Order
+![alt text](image-314.png)
+-	Well, by default, JUnit executes test methods randomly, so there is no particular order in which JUnit executes a test method.
+-	So, we have to explicitly control the execution of order of the test methods.
+-	Well, in some cases we need to order the test methods, because if the test methods are dependent on other test methods, then we have to maintain the order.
+### @TestMethodOrder & @Order annotations
+![alt text](image-315.png)![alt text](image-316.png)
+### Coding
+![alt text](image-317.png)![alt text](image-318.png)
+### Let's run and see the order
+![alt text](image-319.png)
+### Observation
+-  JUnit basically execute the test methods randomly.
+- That's why there is no particular order in which the test cases are executed.
+### We require order add,subtract,multiply and then divide
+![alt text](image-320.png)![alt text](image-321.png)
+### Variations
+![alt text](image-322.png)![alt text](image-323.png)
+# *** ***Section-9: Test Suite***
+# 32. Test Suite
+![alt text](image-326.png)![alt text](image-327.png)![alt text](image-328.png)![alt text](image-329.png)
+### Before creating suite add dependency
+![alt text](image-330.png)![alt text](image-331.png)
+### Adding junit-jupiter-engine dependency
+![alt text](image-332.png)
+### If you not add then you face error 
+![alt text](image-333.png)
+### Now create TestSuite class and add classes via @SelectClasses annotation
+![alt text](image-334.png)![alt text](image-335.png)
+### Add multiple classes in TestSuite
+![alt text](image-336.png)![alt text](image-337.png)
+### Run classes from a selected package
+![alt text](image-338.png)![alt text](image-339.png)
+### Add multiple package to testsuite.
+![alt text](image-340.png)![alt text](image-341.png)
+# *** ***Section-10 Parameterized Test***
+# 33. Parameterized Test and Source Type
+![alt text](image-342.png)![alt text](image-343.png)
+# 34. @ValueSource
+![alt text](image-344.png)
+### Adding dependency
+![alt text](image-345.png)![alt text](image-346.png)
+- clk on load maven changes
+- It will download this dependency from the internet and it will keep in the local maven repository.
+### Create Class Under Test
+![alt text](image-347.png)
+### Create Junit Test class
+![alt text](image-348.png)![alt text](image-349.png)
+### If we want to test other even number then
+![alt text](image-350.png)
+### Drawbacks of this method
+-  We want to test these 5 parameters therefore we write 5 times this assert statement.
+- If we have to do this for 100 parameters then require 100 assert statements.
+- If 1 assert statement fails. Then entire test case will fail.
+    - and the further assert statement will not get executed.
+
+![alt text](image-351.png)
+### Solution 1: create multiple test case
+- Not a good idea
+- So instead of writing the same test method multiple times just to provide the different input,
+    - is not a feasible solution
+### via parameterized test
+- So with the help of parameterized test we can only write the single test method.
+- And using source type we can pass the you know data to the test method.
+### Solution
+![alt text](image-352.png)
+- The above test method contain 5 different parameter
+ - Now if i run the test case. This test method executes 5 times.
+ ### See results
+ ![alt text](image-353.png)
+ - see test passed 5
+ ### Now one of the parameter is not even number
+ ![alt text](image-354.png)![alt text](image-355.png)
+ ### How to use Value Source with String array
+ ![alt text](image-356.png)![alt text](image-357.png)
+ # 35. Enum Source
+ 
+
+
+
+
 
 
 
